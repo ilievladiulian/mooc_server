@@ -2,7 +2,7 @@ package ilievlad.mooc.professors.controller;
 
 import ilievlad.mooc.professors.model.Professor;
 import ilievlad.mooc.professors.service.ProfessorService;
-import ilievlad.mooc.students.model.Student;
+import ilievlad.mooc.comments_response.CommentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +33,7 @@ public class ProfessorController {
 
     @CrossOrigin(origins = "http://localhost:8888")
     @RequestMapping(value = "/professors/{id}", method = RequestMethod.GET)
-    public String getProfessor(@PathVariable(value = "id") long id) {
-        return this.professorService.getProfessorUsername(id);
+    public CommentResponse getProfessor(@PathVariable(value = "id") long id) {
+        return new CommentResponse(this.professorService.getProfessorUsername(id), "professor");
     }
 }

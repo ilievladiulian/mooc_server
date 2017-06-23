@@ -1,14 +1,15 @@
 package ilievlad.mooc.comments.service.impl;
 
-import ilievlad.mooc.chapters.model.Chapter;
 import ilievlad.mooc.comments.model.Comments;
 import ilievlad.mooc.comments.repository.CommentsRepository;
 import ilievlad.mooc.comments.service.CommentsService;
-import ilievlad.mooc.students.model.Student;
+import ilievlad.mooc.professors.service.ProfessorService;
+import ilievlad.mooc.students.service.StudentService;
+import ilievlad.mooc.comments_response.CommentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,12 @@ import java.util.List;
  */
 @Service
 public class SimpleCommentsService implements CommentsService {
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private ProfessorService professorService;
 
     private final CommentsRepository commentsRepository;
 
@@ -25,9 +32,18 @@ public class SimpleCommentsService implements CommentsService {
     }
 
     @Override
-    public List<Comments> getCommentsForChapter(long id) {
+    public List<CommentResponse> getCommentsForChapter(long id) {
         List<Comments> list = this.commentsRepository.findByChapterIdInOrderByCreatedDesc(id);
-        return list;
+        List<CommentResponse> listCommentRespons = new ArrayList<CommentResponse>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getProfessorId() == -1) {
+                listCommentRespons.add(new CommentResponse(this.studentService.getStudentUsername(list.get(i).getStudentId()), "student", list.get(i)));
+            } else {
+                listCommentRespons.add(new CommentResponse(this.professorService.getProfessorUsername(list.get(i).getProfessorId()), "professor", list.get(i)));
+            }
+        }
+        System.out.println(listCommentRespons);
+        return listCommentRespons;
     }
 
 }

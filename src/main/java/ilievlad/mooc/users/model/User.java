@@ -15,6 +15,8 @@ public class User {
     private long id;
 
     private long userId;
+
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
     private Date accessDate;

@@ -1,6 +1,6 @@
 package ilievlad.mooc.comments.service;
 
-import ilievlad.mooc.comments.model.Comments;
+import ilievlad.mooc.comments_response.CommentResponse;
 
 import java.util.List;
 
@@ -8,5 +8,5 @@ import java.util.List;
  * Created by Vlad on 20/06/2017.
  */
 public interface CommentsService {
-    public List<Comments> getCommentsForChapter(long id);
+    public List<CommentResponse> getCommentsForChapter(long id);
 }

@@ -2,8 +2,7 @@ package ilievlad.mooc.students.controller;
 
 import ilievlad.mooc.students.model.Student;
 import ilievlad.mooc.students.service.StudentService;
-import ilievlad.mooc.users.model.User;
-import ilievlad.mooc.users.service.UserService;
+import ilievlad.mooc.comments_response.CommentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,7 @@ public class StudentController {
 
     @CrossOrigin(origins = "http://localhost:8888")
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
-    public String getStudent(@PathVariable(value = "id") long id) {
-        return this.studentService.getStudentUsername(id);
+    public CommentResponse getStudent(@PathVariable(value = "id") long id) {
+        return new CommentResponse(this.studentService.getStudentUsername(id), "student");
     }
 }

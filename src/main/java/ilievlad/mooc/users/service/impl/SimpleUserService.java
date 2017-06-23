@@ -27,11 +27,9 @@ public class SimpleUserService implements UserService {
 
     @Override
     public boolean deleteUser(long id) {
-        if (this.userRepository.findByUserIdIn(id) != null) {
-            this.userRepository.deleteByUserId(id);
-            return true;
-        }
-        return false;
+        this.userRepository.deleteByUserId(id);
+        if (this.userRepository.findByUserIdIn(id) == null) return true;
+        else return false;
     }
 
 }
