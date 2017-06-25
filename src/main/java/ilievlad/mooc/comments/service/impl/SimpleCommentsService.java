@@ -33,7 +33,7 @@ public class SimpleCommentsService implements CommentsService {
 
     @Override
     public List<CommentResponse> getCommentsForChapter(long id) {
-        List<Comments> list = this.commentsRepository.findByChapterIdInOrderByCreatedDesc(id);
+        List<Comments> list = this.commentsRepository.findByChapterIdInOrderByCreatedAsc(id);
         List<CommentResponse> listCommentRespons = new ArrayList<CommentResponse>();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getProfessorId() == -1) {
@@ -44,6 +44,24 @@ public class SimpleCommentsService implements CommentsService {
         }
         System.out.println(listCommentRespons);
         return listCommentRespons;
+    }
+
+    @Override
+    public CommentResponse saveComment(Comments comments) {
+        System.out.println(comments);
+        Comments comment = this.commentsRepository.save(comments);
+        System.out.println(comment);
+        CommentResponse commentResponse = new CommentResponse();
+        if (comment.getProfessorId() == -1) {
+            commentResponse.setComments(comment);
+            commentResponse.setType("student");
+            commentResponse.setUsername(this.studentService.getStudentUsername(comment.getStudentId()));
+        } else {
+            commentResponse.setComments(comment);
+            commentResponse.setType("professor");
+            commentResponse.setUsername(this.professorService.getProfessorUsername(comment.getStudentId()));
+        }
+        return commentResponse;
     }
 
 }

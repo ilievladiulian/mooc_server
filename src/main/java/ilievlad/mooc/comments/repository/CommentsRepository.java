@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Repository
 public interface CommentsRepository extends CrudRepository<Comments, Long> {
-    public List<Comments> findByChapterIdInOrderByCreatedDesc(long id);
+    public List<Comments> findByChapterIdInOrderByCreatedAsc(long id);
 }

@@ -80,4 +80,16 @@ public class Comments {
     public void setProfessorId(long professorId) {
         this.professorId = professorId;
     }
+
+    @Override
+    public String toString() {
+        return "Comments{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", professorId=" + professorId +
+                ", chapter=" + chapter +
+                ", description='" + description + '\'' +
+                ", created=" + created +
+                '}';
+    }
 }

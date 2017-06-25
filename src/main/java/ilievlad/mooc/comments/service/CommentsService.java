@@ -1,5 +1,6 @@
 package ilievlad.mooc.comments.service;
 
+import ilievlad.mooc.comments.model.Comments;
 import ilievlad.mooc.comments_response.CommentResponse;
 
 import java.util.List;
@@ -9,4 +10,5 @@ import java.util.List;
  */
 public interface CommentsService {
     public List<CommentResponse> getCommentsForChapter(long id);
+    public CommentResponse saveComment(Comments comments);
 }
