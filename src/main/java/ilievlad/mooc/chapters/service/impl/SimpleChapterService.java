@@ -3,6 +3,8 @@ package ilievlad.mooc.chapters.service.impl;
 import ilievlad.mooc.chapters.model.Chapter;
 import ilievlad.mooc.chapters.repository.ChapterRepository;
 import ilievlad.mooc.chapters.service.ChapterService;
+import ilievlad.mooc.comments.model.Comments;
+import ilievlad.mooc.comments.repository.CommentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ import java.util.List;
  */
 @Service
 public class SimpleChapterService implements ChapterService {
+
+    @Autowired
+    private CommentsRepository commentsRepository;
 
     private final ChapterRepository chapterRepository;
 
@@ -30,6 +35,18 @@ public class SimpleChapterService implements ChapterService {
     @Override
     public Chapter getChapter(long id) {
         return this.chapterRepository.findOne(id);
+    }
+
+    @Override
+    public void deleteByCourseId(long courseId) {
+        List<Chapter> chapters = (List<Chapter>) this.chapterRepository.findByCourseIdIn(courseId);
+        for (int i = 0; i < chapters.size(); i++) {
+            List<Comments> comments = (List<Comments>) this.commentsRepository.findByChapterIdInOrderByCreatedAsc(chapters.get(i).getId());
+            for (int j = 0; j < comments.size(); j++) {
+                this.commentsRepository.delete(comments.get(j).getId());
+            }
+            this.chapterRepository.delete(chapters.get(i).getId());
+        }
     }
 
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface ChapterService {
     List<Chapter> getChapters(long course);
     Chapter getChapter(long id);
+    void deleteByCourseId(long courseId);
 }

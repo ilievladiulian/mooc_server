@@ -1,8 +1,12 @@
 package ilievlad.mooc.courses.service.impl;
 
+import ilievlad.mooc.chapters.service.ChapterService;
 import ilievlad.mooc.courses.model.Course;
 import ilievlad.mooc.courses.repository.CourseRepository;
 import ilievlad.mooc.courses.service.CourseService;
+import ilievlad.mooc.participants.service.ParticipantService;
+import ilievlad.mooc.teachers.repository.TeacherRepository;
+import ilievlad.mooc.teachers.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,15 @@ import java.util.List;
  */
 @Service
 public class SimpleCourseService implements CourseService {
+
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private ChapterService chapterService;
+
+    @Autowired
+    private ParticipantService participantService;
 
     private final CourseRepository courseRepository;
 
@@ -25,5 +38,15 @@ public class SimpleCourseService implements CourseService {
     public List<Course> getCourses() {
         List<Course> courseList = (List<Course>) this.courseRepository.findAll();
         return courseList;
+    }
+
+    @Override
+    public List<Course> deleteCourse(long courseId) {
+        this.teacherService.deleteByCourseId(courseId);
+        this.participantService.deleteByCourseId(courseId);
+        this.chapterService.deleteByCourseId(courseId);
+        this.courseRepository.delete(courseId);
+        List<Course> courses = (List<Course>) this.courseRepository.findAll();
+        return courses;
     }
 }

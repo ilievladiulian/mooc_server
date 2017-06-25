@@ -3,10 +3,7 @@ package ilievlad.mooc.courses.controller;
 import ilievlad.mooc.courses.model.Course;
 import ilievlad.mooc.courses.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,4 +27,9 @@ public class CourseController {
         return courseService.getCourses();
     }
 
+    @CrossOrigin(origins = "http://localhost:8888")
+    @RequestMapping(value = "/courses", method = RequestMethod.DELETE)
+    public List<Course> deleteCourse(@RequestParam(value = "courseId") long courseId) {
+        return this.courseService.deleteCourse(courseId);
+    }
 }
