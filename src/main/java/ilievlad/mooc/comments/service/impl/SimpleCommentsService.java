@@ -59,7 +59,7 @@ public class SimpleCommentsService implements CommentsService {
         } else {
             commentResponse.setComments(comment);
             commentResponse.setType("professor");
-            commentResponse.setUsername(this.professorService.getProfessorUsername(comment.getStudentId()));
+            commentResponse.setUsername(this.professorService.getProfessorUsername(comment.getProfessorId()));
         }
         return commentResponse;
     }
