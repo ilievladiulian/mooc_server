@@ -1,4 +1,5 @@
-# mooc_server - server implemented in java that provides a web api for the Elearning App
+# mooc_server
+Server implemented in java that provides a web api for the Elearning App
 
 ## Setup
 1. Clone the repository on your local machine.
