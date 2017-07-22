@@ -39,4 +39,10 @@ public class ChapterController {
         return this.chapterService.deleteByChapterId(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:8888")
+    @RequestMapping(value = "/chapters/{chapter}", method = RequestMethod.PUT)
+    public Chapter updateChapter(@RequestBody Chapter chapter) {
+        return this.chapterService.updateChapter(chapter);
+    }
+
 }

@@ -52,16 +52,23 @@ public class SimpleChapterService implements ChapterService {
     @Override
     public boolean deleteByChapterId(long chapterId) {
         Chapter chapter = this.chapterRepository.findOne(chapterId);
-        this.chapterRepository.delete(chapterId);
         List<Comments> comments = (List<Comments>) this.commentsRepository.findByChapterIdInOrderByCreatedAsc(chapterId);
         for (Comments comment : comments) {
             this.commentsRepository.delete(comment.getId());
         }
+        this.chapterRepository.delete(chapterId);
         List<Chapter> chapters = (List<Chapter>) this.chapterRepository.findAll();
         for (Chapter chap : chapters) {
             if (chapter.equals(chap)) return false;
         }
         return true;
+    }
+
+    @Override
+    public Chapter updateChapter(Chapter chapter) {
+        chapter.setContent(chapter.getContent().replace("\n", "<br />\n"));
+        this.chapterRepository.updateChapter(chapter.getTitle(), chapter.getContent(), chapter.getId());
+        return this.chapterRepository.findOne(chapter.getId());
     }
 
 }

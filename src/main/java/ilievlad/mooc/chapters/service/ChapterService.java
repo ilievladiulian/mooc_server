@@ -12,4 +12,5 @@ public interface ChapterService {
     Chapter getChapter(long id);
     void deleteByCourseId(long courseId);
     boolean deleteByChapterId(long chapterId);
+    Chapter updateChapter(Chapter chapter);
 }
