@@ -49,4 +49,19 @@ public class SimpleChapterService implements ChapterService {
         }
     }
 
+    @Override
+    public boolean deleteByChapterId(long chapterId) {
+        Chapter chapter = this.chapterRepository.findOne(chapterId);
+        this.chapterRepository.delete(chapterId);
+        List<Comments> comments = (List<Comments>) this.commentsRepository.findByChapterIdInOrderByCreatedAsc(chapterId);
+        for (Comments comment : comments) {
+            this.commentsRepository.delete(comment.getId());
+        }
+        List<Chapter> chapters = (List<Chapter>) this.chapterRepository.findAll();
+        for (Chapter chap : chapters) {
+            if (chapter.equals(chap)) return false;
+        }
+        return true;
+    }
+
 }

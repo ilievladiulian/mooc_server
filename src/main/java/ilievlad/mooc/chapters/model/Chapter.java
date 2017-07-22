@@ -56,4 +56,16 @@ public class Chapter {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) return false;
+        if (!(object instanceof Chapter)) return false;
+        else {
+            if (!((Chapter) object).getContent().equals(this.getContent())) return false;
+            if (!((Chapter) object).getCourse().equals(this.getCourse())) return false;
+            if (!((Chapter) object).getTitle().equals((this.getTitle()))) return false;
+        }
+        return true;
+    }
 }

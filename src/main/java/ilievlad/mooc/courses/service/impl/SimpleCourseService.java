@@ -49,4 +49,16 @@ public class SimpleCourseService implements CourseService {
         List<Course> courses = (List<Course>) this.courseRepository.findAll();
         return courses;
     }
+
+    @Override
+    public Course getCourseById(long courseId) {
+        return this.courseRepository.findOne(courseId);
+    }
+
+    @Override
+    public boolean updateCourse(Course course) {
+        Course prevCourse = this.courseRepository.findOne(course.getId());
+        this.courseRepository.setCourseById(course.getTitle(), course.getDescription(), course.getMaxNumberOfDays(), course.getStartDate(), course.getEndDate(), course.getId());
+        return true;
+    }
 }

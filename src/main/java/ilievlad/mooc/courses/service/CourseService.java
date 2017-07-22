@@ -10,4 +10,6 @@ import java.util.List;
 public interface CourseService {
     List<Course> getCourses();
     List<Course> deleteCourse(long courseId);
+    Course getCourseById(long courseId);
+    boolean updateCourse(Course course);
 }

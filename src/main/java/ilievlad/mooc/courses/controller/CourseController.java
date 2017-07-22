@@ -32,4 +32,16 @@ public class CourseController {
     public List<Course> deleteCourse(@RequestParam(value = "courseId") long courseId) {
         return this.courseService.deleteCourse(courseId);
     }
+
+    @CrossOrigin(origins = "http://localhost:8888")
+    @RequestMapping(value = "/courses/{courseId}", method = RequestMethod.GET)
+    public Course getCourse(@PathVariable(value = "courseId") long courseId) {
+        return this.courseService.getCourseById(courseId);
+    }
+
+    @CrossOrigin(origins = "http://localhost:8888")
+    @RequestMapping(value = "/courses/update_course", method = RequestMethod.PUT)
+    public boolean updateCourse(@RequestBody Course course) {
+        return this.courseService.updateCourse(course);
+    }
 }
